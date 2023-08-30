@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -37,5 +36,11 @@ public class User {
   @NotBlank
   @Size(max = 100)
   private String password;
+
+  public User(String username, String email, String password) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
   
 }
