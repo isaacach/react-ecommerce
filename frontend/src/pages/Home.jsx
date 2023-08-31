@@ -1,64 +1,39 @@
-import { Component } from "react";
-
-import userService from "../services/user-service";
+import { useEffect, useState } from "react";
 import { getProductWithLimit } from "../api/api";
+import '../styles/home.css'
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
+export default function Home() {
+  const [heroProducts, setHeroProducts] = useState(undefined);
 
-    this.state = {
-      content: [],
-      products: []
-    };
-  }
-
-
-  componentDidMount() {
-    userService.getPublicContent().then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data && error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await getProductWithLimit(10);
+      if (products) {
+        setHeroProducts(products);
       }
-    );
-    getProductWithLimit(10).then(
-      response => {
-        this.setState({
-          products: response.data
-        });
-        console.log(response);
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data && error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
-      }
-    )
-  }
+    }
+    getProducts()
+  }, [])
 
-  render() {
-    return (
-      <div>
-        <header>
-          <h3>Home</h3>
-        </header>
-        <div>{this.state.content.map((user, index) => {
-          return <p key={index}>{user.username}</p>
-        })}</div>
-        <div></div>
+  console.log(heroProducts);
+
+  return (
+    <div>
+      <header>
+        <h3>Home</h3>
+      </header>
+      <div className="hero-carousel">
+        {heroProducts && heroProducts.map((prod, index) => {
+          return (
+          <div key={index} className="product-card">
+            <img src={prod.image} style={{width: '300px'}}/>
+            <p>{prod.title}</p>
+            <p>{prod.description}</p>
+          </div>
+          )
+        })}
       </div>
-    );
-  }
+      <div></div>
+    </div>
+  );
 }

@@ -1,0 +1,9 @@
+.hero-carousel {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.product-card {
+  width: 400px;
+}

@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link to={"/shop"} className="navbar-brand">
-        Random Shop
+        Shop
       </Link>
       <div className="navbar-item-wrapper">
         <li className="nav-item">

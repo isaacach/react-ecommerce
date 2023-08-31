@@ -21,6 +21,9 @@ a {
   position: relative;
   display: flex;
   align-items: center;
+}
+
+.dropdown p {
   cursor: pointer;
 }
 
@@ -36,6 +39,7 @@ a {
   top: 50px;
   height: 90px;
   padding-inline: 1.2rem;
+  background: #999;
   border: 1px solid black;
   transition: display .2s ease;
 }
