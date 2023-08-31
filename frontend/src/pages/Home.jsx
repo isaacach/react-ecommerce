@@ -1,13 +1,15 @@
 import { Component } from "react";
 
 import userService from "../services/user-service";
+import { getProductWithLimit } from "../api/api";
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      content: []
+      content: [],
+      products: []
     };
   }
 
@@ -28,6 +30,22 @@ export default class Home extends Component {
         });
       }
     );
+    getProductWithLimit(10).then(
+      response => {
+        this.setState({
+          products: response.data
+        });
+        console.log(response);
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    )
   }
 
   render() {
@@ -39,6 +57,7 @@ export default class Home extends Component {
         <div>{this.state.content.map((user, index) => {
           return <p key={index}>{user.username}</p>
         })}</div>
+        <div></div>
       </div>
     );
   }
