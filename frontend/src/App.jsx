@@ -70,7 +70,7 @@ class App extends Component {
               </li>
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  Log out
                 </a>
               </li>
             </div>
@@ -83,7 +83,7 @@ class App extends Component {
                 </li>
                 <li className="nav-item">
                   <Link to={"/register"} className="nav-link">
-                    Sign Up
+                    Register
                 </Link>
                 </li>
               </div>

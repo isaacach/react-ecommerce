@@ -7,9 +7,10 @@ export default class Home extends Component {
     super(props);
 
     this.state = {
-      content: ""
+      content: []
     };
   }
+
 
   componentDidMount() {
     userService.getPublicContent().then(
@@ -35,7 +36,9 @@ export default class Home extends Component {
         <header>
           <h3>Home</h3>
         </header>
-        <p>{this.state.content}</p>
+        <div>{this.state.content.map((user, index) => {
+          return <p key={index}>{user.username}</p>
+        })}</div>
       </div>
     );
   }
