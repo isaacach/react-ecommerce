@@ -126,7 +126,7 @@ class Login extends Component {
                 disabled={this.state.loading}
               >
                 {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
+                  <span className="loader">Loader</span>
                 )}
                 <span>Login</span>
               </button>
