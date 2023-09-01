@@ -1,42 +1,39 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
+import { getProductWithLimit } from "../api/api";
+import '../styles/home.css'
 
-import userService from "../services/user-service";
+export default function Home() {
+  const [heroProducts, setHeroProducts] = useState(undefined);
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      content: ""
-    };
-  }
-
-  componentDidMount() {
-    userService.getPublicContent().then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data && error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await getProductWithLimit(10);
+      if (products) {
+        setHeroProducts(products);
       }
-    );
-  }
+    }
+    getProducts()
+  }, [])
 
-  render() {
-    return (
-      <div>
-        <header>
-          <h3>Home</h3>
-        </header>
-        <p>{this.state.content}</p>
+  console.log(heroProducts);
+
+  return (
+    <div className="home">
+      <header>
+        <h3>Home</h3>
+      </header>
+      <div className="hero-carousel">
+        {heroProducts && heroProducts.map((prod, index) => {
+          return (
+          <div key={index} className="product-card">
+            <img src={prod.image} style={{width: '300px'}}/>
+            <p>{prod.title}</p>
+            <p>{prod.description}</p>
+          </div>
+          )
+        })}
       </div>
-    );
-  }
+      <div></div>
+    </div>
+  );
 }
