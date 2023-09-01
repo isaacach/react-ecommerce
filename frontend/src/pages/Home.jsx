@@ -18,7 +18,7 @@ export default function Home() {
   console.log(heroProducts);
 
   return (
-    <div>
+    <div className="home">
       <header>
         <h3>Home</h3>
       </header>

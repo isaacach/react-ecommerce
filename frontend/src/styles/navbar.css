@@ -39,7 +39,7 @@ a {
   top: 50px;
   height: 90px;
   padding-inline: 1.2rem;
-  background: #999;
-  border: 1px solid black;
+  background: #dad7d7;
+  border: 1px solid rgb(110, 105, 105);
   transition: display .2s ease;
 }
