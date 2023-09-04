@@ -1,5 +1,7 @@
 package com.ecommerce.backend.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,17 +27,19 @@ public class UserController {
 
   @PostMapping("/edit")
   public ResponseEntity<?> registerUser(@Valid @RequestBody EditRequest editRequest) {
+    System.out.println(editRequest.getId());
 
-    User user = userRepository.findByEmail(editRequest.getEmail());
+    User user = userRepository.getById(editRequest.getId());
+    System.out.println(user.getEmail() + " and " + editRequest.getEmail());
 
-    if (user.getEmail() != editRequest.getEmail()) {
+    if (!user.getEmail().equals(editRequest.getEmail())) {
       if (userRepository.existsByEmail(editRequest.getEmail())) {
       return ResponseEntity
           .badRequest()
           .body(new MessageResponse("Error: Email is already in use"));
     }
       user.setEmail(editRequest.getEmail());
-    } else if (user.getUsername() != editRequest.getUsername()) {
+    } else if (!user.getUsername().equals(editRequest.getUsername())) {
       if (userRepository.existsByUsername(editRequest.getUsername())) {
       return ResponseEntity
           .badRequest()

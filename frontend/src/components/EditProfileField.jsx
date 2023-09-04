@@ -18,7 +18,7 @@ export default function EditProfileField({ field, user, onSubmit }) {
     e.preventDefault();
     onSubmit();
     if (field === 'email') {
-      userService.editUser(user.username, newEmail, user.password).then(
+      userService.editUser(user.id, user.username, newEmail).then(
         response => {
           console.log(response)
         },
@@ -27,7 +27,7 @@ export default function EditProfileField({ field, user, onSubmit }) {
         }
       )
     } else if (field === 'username') {
-      userService.editUser(newUsername, user.email, user.password).then(
+      userService.editUser(user.id, newUsername, user.email).then(
         response => {
           console.log(response)
         },
