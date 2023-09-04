@@ -1,56 +1,73 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth-service";
+import EditProfileField from "../components/EditProfileField";
 
-export default class Profile extends Component {
-  constructor(props) {
-    super(props);
+export default function Profile() {
+  const [editEmail, setEditEmail] = useState(false);
+  const [editUsername, setEditUsername] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userReady, setUserReady] = useState(false);
+  const [redirect, setRedirect] = useState(null);
 
-    this.state = {
-      redirect: null,
-      userReady: false,
-      currentUser: {username: "" }
-    };
-  }
+  const handleEmailEditClick = () => {
+    setEditEmail(true);
+    setEditUsername(false);
+  };
 
-  componentDidMount() {
+  const handleUsernameEditClick = () => {
+    setEditUsername(true);
+    setEditEmail(false)
+  };
+
+  const handleSubmit = () => {
+    setEditEmail(false);
+    setEditUsername(false);
+  };
+
+  useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
 
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
+    if (!currentUser) setRedirect("/home");
+
+    setUser(currentUser);
+    setUserReady(true);
+  }, []);
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
   }
 
-  render() {
-    if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />
-    }
-
-    const { currentUser } = this.state;
-
-    return (
-      <div>
-        {(this.state.userReady) ?
-          <div>
-            <header >
-              <h3>
-                <strong>{currentUser.username}</strong> Profile
-              </h3>
-            </header>
+  return (
+    <div className="profile-wrapper">
+      {userReady ? (
+        <div>
+          <header>
+            <h2>Welcome, {user.username}</h2>
+          </header>
+          {editEmail ? (
+            <EditProfileField
+              field={"email"}
+              user={user}
+              onSubmit={handleSubmit}
+            />
+          ) : (
             <p>
-              <strong>Token:</strong>{" "}
-              {currentUser.token.substring(0, 20)} ...{" "}
-              {currentUser.token.substr(currentUser.token.length - 20)}
+              <strong>Email:</strong> {user.email}
+              <button onClick={handleEmailEditClick}>Edit Email</button>
             </p>
-            <p>
-              <strong>Id:</strong>{" "}
-              {currentUser.id}
-            </p>
-            <p>
-              <strong>Email:</strong>{" "}
-              {currentUser.email}
-            </p>
-          </div> : null}
-      </div>
-    );
-  }
+          )}
+          {editUsername ? (
+            <EditProfileField
+              field={"username"}
+              user={user}
+              onSubmit={handleSubmit}
+            />
+          ) : (
+            <p onClick={handleUsernameEditClick}>Change Username</p>
+          )}
+        </div>
+      ) : null}
+    </div>
+  );
 }
