@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthService from "../services/auth-service";
 import "../styles/navbar.css";
@@ -6,6 +6,9 @@ import { GoChevronDown, GoChevronRight } from "react-icons/go";
 
 export default function Navbar() {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [category, setCategory] = useState(undefined);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -22,6 +25,24 @@ export default function Navbar() {
     });
   };
 
+  const handleClickElectronics = () => {
+    setCategory('electronics');
+    navigate('/shop', {
+      state: {
+        category
+      }
+    })
+  }
+
+  const handleClickJewelry = () => {
+    setCategory('jewelry');
+    navigate('/shop', {
+      state: {
+        category
+      }
+    })
+  }
+
   return (
     <nav className="navbar">
       <div className="nav-item-wrapper dropdown-one">
@@ -30,8 +51,8 @@ export default function Navbar() {
         </Link>
         <GoChevronDown className="dropdown-arrow" />
         <div className="dropdown-wrapper-one">
-          <p className="nav-item">Electronics</p>
-          <p className="nav-item">Jewelry</p>
+          <p className="nav-item" onClick={handleClickElectronics}>Electronics</p>
+          <p className="nav-item" onClick={handleClickJewelry}>Jewelry</p>
           <div className="sub-dropdown">
             <p className="nav-item">Clothing</p>
             <GoChevronRight className="sub-dropdown-arrow"/>
@@ -52,6 +73,7 @@ export default function Navbar() {
       {currentUser ? (
         <div className="navbar-item-wrapper dropdown">
           <p>Account</p>
+          <GoChevronDown className="dropdown-arrow" />
           <div className="dropdown-wrapper">
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
