@@ -25,7 +25,7 @@ export default function Home() {
       <div className="hero-carousel">
         {heroProducts && heroProducts.map((prod, index) => {
           return (
-          <div key={index} className="product-card">
+          <div key={index} className="hero-card">
             <img src={prod.image} style={{width: '300px'}}/>
             <p>{prod.title}</p>
             <p>{prod.description}</p>

@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { getProductWithCategory, getAllProducts } from "../api/api";
-import '../styles/shop.css'
+import "../styles/shop.css";
 
 export default function Shop({ category }) {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     console.log("effect ran");
@@ -30,6 +31,40 @@ export default function Shop({ category }) {
     }
   }, [category]);
 
+  useEffect(() => {
+    let counter = count;
+    const interval = setInterval(() => {
+      if (counter >= products.length) {
+        clearInterval(interval);
+      } else {
+        setCount((count) => count + 1);
+        counter++;
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, [products]);
+
+  let renderedProducts = products.slice(0, count).map((prod, index) => {
+    return (
+      <div key={index} className="product-card">
+        <div className="product-image-wrapper">
+          <img
+            className="product-image"
+            src={prod.image}
+            style={{ width: "300px" }}
+          />
+        </div>
+        <div className="description">
+          <p className="title">{prod.title}</p>
+          <div className="button-wrapper">
+            <button>Add to favorites</button>
+            <button>Add to cart</button>
+          </div>
+        </div>
+      </div>
+    );
+  });
+
   console.log(products);
   return (
     <div className="shop">
@@ -41,16 +76,7 @@ export default function Shop({ category }) {
           <div></div>
         </div>
       )}
-      {products &&
-        products.map((prod, index) => {
-          return (
-            <div key={index} className="product-card">
-              <img src={prod.image} style={{ width: "300px" }} />
-              <p>{prod.title}</p>
-              <p>{prod.description}</p>
-            </div>
-          );
-        })}
+      {renderedProducts}
     </div>
   );
 }
