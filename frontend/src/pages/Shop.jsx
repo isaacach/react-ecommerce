@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getProductWithCategory, getAllProducts } from "../api/api";
 import "../styles/shop.css";
+import { CartContext } from "../context/CartContext";
 
 export default function Shop({ category }) {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(0);
+  const { cartCount, setCartCount } = useContext(CartContext)
 
   useEffect(() => {
     console.log("effect ran");
@@ -40,9 +42,14 @@ export default function Shop({ category }) {
         setCount((count) => count + 1);
         counter++;
       }
-    }, 100);
+    }, 50);
     return () => clearInterval(interval);
   }, [products]);
+
+  const handleCartAddClick = () => {
+    localStorage.setItem('cart', parseFloat(localStorage.getItem('cart')) + 1);
+    setCartCount(cartCount + 1);
+  }
 
   let renderedProducts = products.slice(0, count).map((prod, index) => {
     return (
@@ -57,8 +64,8 @@ export default function Shop({ category }) {
         <div className="description">
           <p className="title">{prod.title}</p>
           <div className="button-wrapper">
-            <button>Add to favorites</button>
-            <button>Add to cart</button>
+            <button >Add to favorites</button>
+            <button onClick={handleCartAddClick}>Add to cart</button>
           </div>
         </div>
       </div>

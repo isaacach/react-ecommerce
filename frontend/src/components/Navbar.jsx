@@ -1,13 +1,17 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
+import { useContext, useEffect, useState } from "react";
+import { GoChevronDown, GoChevronRight } from "react-icons/go";
+import { RiShoppingCartFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import AuthService from "../services/auth-service";
 import "../styles/navbar.css";
-import { GoChevronDown, GoChevronRight } from "react-icons/go";
+import { CartContext } from "../context/CartContext";
 
 export default function Navbar() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [category, setCategory] = useState(undefined);
+  const { cartCount } = useContext(CartContext)
 
   let navigate = useNavigate();
 
@@ -27,20 +31,20 @@ export default function Navbar() {
   };
 
   const handleClickElectronics = () => {
-    setCategory('electronics');
-    navigate('/shop', {
-        category: category
-    })
-  }
+    setCategory("electronics");
+    navigate("/shop", {
+      category: category,
+    });
+  };
 
   const handleClickJewelry = () => {
-    setCategory('jewelry');
-    navigate('/shop', {
+    setCategory("jewelry");
+    navigate("/shop", {
       state: {
-        category
-      }
-    })
-  }
+        category,
+      },
+    });
+  };
 
   return (
     <nav className="navbar">
@@ -50,11 +54,15 @@ export default function Navbar() {
         </Link>
         <GoChevronDown className="dropdown-arrow" />
         <div className="dropdown-wrapper-one">
-          <p className="nav-item" onClick={handleClickElectronics}>Electronics</p>
-          <p className="nav-item" onClick={handleClickJewelry}>Jewelry</p>
+          <p className="nav-item" onClick={handleClickElectronics}>
+            Electronics
+          </p>
+          <p className="nav-item" onClick={handleClickJewelry}>
+            Jewelry
+          </p>
           <div className="sub-dropdown">
             <p className="nav-item">Clothing</p>
-            <GoChevronRight className="sub-dropdown-arrow"/>
+            <GoChevronRight className="sub-dropdown-arrow" />
             <div className="sub-dropdown-wrapper">
               <p>Men's</p>
               <p>Women's</p>
@@ -70,20 +78,26 @@ export default function Navbar() {
         </li>
       </div>
       {currentUser ? (
-        <div className="navbar-item-wrapper dropdown">
-          <p>Account</p>
-          <GoChevronDown className="dropdown-arrow" />
-          <div className="dropdown-wrapper">
-            <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
-                Log out
-              </a>
-            </li>
+        <div className="with-cart">
+          <div className="navbar-item-wrapper dropdown">
+            <p>Account</p>
+            <GoChevronDown className="dropdown-arrow" />
+            <div className="dropdown-wrapper">
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  {currentUser.username}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={logOut}>
+                  Log out
+                </a>
+              </li>
+            </div>
+          </div>
+          <div className="cart">
+            <RiShoppingCartFill />
+            {cartCount > 0 && <p className="cart-count">{cartCount}</p>}
           </div>
         </div>
       ) : (

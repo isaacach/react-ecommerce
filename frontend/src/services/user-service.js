@@ -25,6 +25,10 @@ class UserService {
       return response.data;
     });
   }
+
+  getCart() {
+    localStorage.getItem('cart')
+  }
 }
 
 export default new UserService();
