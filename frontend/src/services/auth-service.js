@@ -9,6 +9,7 @@ class AuthService {
       .then((response) => {
         if (response.data.token) {
           localStorage.setItem('user', JSON.stringify(response.data));
+          localStorage.setItem('cart', 0);
         }
         console.log(response.data);
         return response.data;
@@ -17,6 +18,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('cart');
   }
 
   register(username, email, password) {
