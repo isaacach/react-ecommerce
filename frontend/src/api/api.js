@@ -17,5 +17,6 @@ export const getProductWithLimit = async (limit) => {
 export const getProductWithCategory = async (category) => {
   let res = await fetch(storeURL + `/category/${category}`);
   let data = await res.json();
+  console.log(data)
   return data;
 }

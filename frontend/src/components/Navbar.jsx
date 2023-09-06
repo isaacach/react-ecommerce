@@ -1,4 +1,5 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+/* eslint-disable react/no-unescaped-entities */
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthService from "../services/auth-service";
 import "../styles/navbar.css";
@@ -28,9 +29,7 @@ export default function Navbar() {
   const handleClickElectronics = () => {
     setCategory('electronics');
     navigate('/shop', {
-      state: {
-        category
-      }
+        category: category
     })
   }
 
