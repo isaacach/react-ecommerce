@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../services/auth-service";
 import "../styles/navbar.css";
 import { CartContext } from "../context/CartContext";
+import CartSlider from "./CartSlider";
 
 export default function Navbar() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -98,6 +99,7 @@ export default function Navbar() {
           <div className="cart">
             <RiShoppingCartFill />
             {cart.length > 0 && <p className="cart-count">{cart.length}</p>}
+            <CartSlider />
           </div>
         </div>
       ) : (
