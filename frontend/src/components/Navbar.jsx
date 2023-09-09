@@ -11,7 +11,7 @@ import { CartContext } from "../context/CartContext";
 export default function Navbar() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [category, setCategory] = useState(undefined);
-  const { cartCount } = useContext(CartContext)
+  const { cart } = useContext(CartContext)
 
   let navigate = useNavigate();
 
@@ -97,7 +97,7 @@ export default function Navbar() {
           </div>
           <div className="cart">
             <RiShoppingCartFill />
-            {cartCount > 0 && <p className="cart-count">{cartCount}</p>}
+            {cart.length > 0 && <p className="cart-count">{cart.length}</p>}
           </div>
         </div>
       ) : (

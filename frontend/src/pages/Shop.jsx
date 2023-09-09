@@ -8,7 +8,7 @@ export default function Shop({ category }) {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(0);
-  const { cartCount, setCartCount } = useContext(CartContext)
+  const { cart, setCart } = useContext(CartContext)
 
   useEffect(() => {
     console.log("effect ran");
@@ -46,10 +46,12 @@ export default function Shop({ category }) {
     return () => clearInterval(interval);
   }, [products]);
 
-  const handleCartAddClick = () => {
-    localStorage.setItem('cart', parseFloat(localStorage.getItem('cart')) + 1);
-    setCartCount(cartCount + 1);
-  }
+  const handleCartAddClick = (e) => {
+        console.log(e.target.id);
+        const chosenProduct = products.find(prod => e.target.id == prod.id)
+        setCart([...cart, chosenProduct]);
+      }
+
 
   let renderedProducts = products.slice(0, count).map((prod, index) => {
     return (
@@ -65,7 +67,7 @@ export default function Shop({ category }) {
           <p className="title">{prod.title}</p>
           <div className="button-wrapper">
             <button >Add to favorites</button>
-            <button onClick={handleCartAddClick}>Add to cart</button>
+            <button id={index + 1} onClick={handleCartAddClick}>Add to cart</button>
           </div>
         </div>
       </div>
@@ -73,6 +75,7 @@ export default function Shop({ category }) {
   });
 
   console.log(products);
+  console.log(cart);
   return (
     <div className="shop">
       {isLoading && (
