@@ -19,7 +19,7 @@ body {
   margin-top: 65px;
 }
 
-img, picture, video, canvas, svg {
+img, picture, video, canvas {
   display: block;
   max-width: 100%;
 }
@@ -32,9 +32,6 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-#root, #__next {
-  isolation: isolate;
-}
 
 .loader {
   display: inline-block;

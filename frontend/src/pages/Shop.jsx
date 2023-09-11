@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { getProductWithCategory, getAllProducts } from "../api/api";
+import Rating from '@mui/material/Rating';
 import "../styles/shop.css";
 import { CartContext } from "../context/CartContext";
 
@@ -65,6 +66,10 @@ export default function Shop({ category }) {
         </div>
         <div className="description">
           <p className="title">{prod.title}</p>
+          <div className="rating-price">
+            <Rating value={prod.rating.rate} precision={0.1} size="small"readOnly/>
+            <p>${prod.price}</p>
+          </div>
           <div className="button-wrapper">
             <button >Add to favorites</button>
             <button id={index + 1} onClick={handleCartAddClick}>Add to cart</button>
