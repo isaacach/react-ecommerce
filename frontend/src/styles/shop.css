@@ -21,12 +21,15 @@
 }
 
 .product-image-wrapper {
+  display: flex;
+  justify-content: center;
   height: 300px;
-  width: 240px;
+  width: 100%;
 }
 
 .product-image {
   height: 300px;
+  width: 240px;
   object-fit: contain;
 }
 
@@ -36,39 +39,59 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 250px;
+  width: 100%;
 }
 
 .title {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
+  margin: auto;
+  font-size: 1.2rem;
+  width: 90%;
+}
+
+.rating-price-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid rgb(177, 173, 173);
+}
+
+.rating-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  padding-left: 15px;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(8, 24, 250, 0.8);
 }
 
 .button-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  font-size: 1.5rem;
   height: 70px;
-  width: 100%;
-}
-
-.button-wrapper button {
-  border: none;
-  background-color: rgb(75, 74, 74);
-  color: #e6dcdc;
-  padding: 5px 10px;
-  border-radius: 5px;
+  width: 100px;
+  border-left: 1px solid rgb(177, 173, 173);
+  border-bottom-right-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color .2s ease;
 }
 
-.button-wrapper button:hover {
-  transform: translateX(2px);
-  box-shadow: -3px 3px 4px rgb(32, 32, 32)
+.button-wrapper:hover {
+  background-color: rgb(201, 201, 201);
 }
+
 
 @keyframes fade-in {
   from {
