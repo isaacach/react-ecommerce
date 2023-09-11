@@ -164,18 +164,52 @@ a {
   justify-content: space-between;
   align-items: center;
   width: 300px;
+  height: 100%;
 }
 
 .cart {
   position: relative;
+  display: flex;
+  align-items: center;
   font-size: 1.6rem;
+  height: 100%;
+}
+
+.cart svg {
+  cursor: pointer;
 }
 
 .cart .cart-count {
   position: absolute;
-  top: -20px;
+  top: 0;
   right: -20px;
   font-size: 1.2rem;
   text-align: center;
-  
+  pointer-events: none;
+}
+
+.cart-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  position: absolute;
+  z-index: 999;
+  top: 65px;
+  left: 200px;
+  height: calc(100vh - 65px);
+  width: 350px;
+  font-size: 1rem;
+  background-color: rgb(233, 229, 229);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: black;
+  transition: left .5s ease;
+}
+
+.cart-slider header {
+  font-size: 3rem;
+}
+
+.cart:hover > .cart-slider {
+  left: -180px;
 }

@@ -11,23 +11,19 @@ import { CartContext } from "./context/CartContext";
 import { useState } from "react";
 
 export default function App() {
-  const [cartCount, setCartCount] = useState(0)
-
-  const handleAddCart = () => {
-    setCartCount(cartCount + 1)
-  }
+  const [cart, setCart] = useState([])
 
   return (
     <div className="app">
-      <CartContext.Provider value={{ cartCount, setCartCount }}>
-      <Navbar cartCount={cartCount}/>
+      <CartContext.Provider value={{ cart, setCart }}>
+      <Navbar />
       <div className="container mt-3">
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/shop" element={<Shop />} onAddCart={handleAddCart}/>
+          <Route path="/shop" element={<Shop />} />
         </Routes>
       </div>
       </CartContext.Provider>

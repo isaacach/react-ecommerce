@@ -17,7 +17,6 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class User {
 
   @Id
@@ -36,6 +35,8 @@ public class User {
   @NotBlank
   @Size(max = 100)
   private String password;
+
+  public User() {};
 
   public User(String username, String email, String password) {
     this.username = username;
