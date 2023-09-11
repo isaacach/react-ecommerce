@@ -88,6 +88,10 @@
   transition: background-color .2s ease;
 }
 
+.button-wrapper svg {
+  pointer-events: none;
+}
+
 .button-wrapper:hover {
   background-color: rgb(201, 201, 201);
 }

@@ -15,7 +15,10 @@ export default function CartSlider() {
 
   return (
     <div className="cart-slider">
-      {renderedCartProducts}
+      <header>My Cart</header>
+      <div className="cart-products">
+        {renderedCartProducts}
+      </div>
     </div>
   )
 
